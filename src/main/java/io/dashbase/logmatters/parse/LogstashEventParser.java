@@ -11,6 +11,7 @@ import com.google.common.collect.Maps;
 import rapid.ingester.RapidIngestedData;
 import rapid.ingester.RapidIngesterParser;
 import rapid.parser.RapidColumn;
+import rapid.parser.TimeValueParser;
 
 public class LogstashEventParser implements RapidIngesterParser
 {
@@ -102,6 +103,23 @@ public class LogstashEventParser implements RapidIngesterParser
         data.payload = new BytesRef(rawContent);
       }
     }
+    
+    long timeInMillis;
+    String timeVal = (String) dataMap.get("@timestamp");
+    if (timeVal != null && timeVal.equals(ctx.currentDateString)) {      
+      timeInMillis = ctx.currentTimeInMillis;
+    } else {
+      TimeValueParser timeValueParser = TimeValueParser.getParser(TimeValueParser.TYPE_ISO);
+      if (timeValueParser != null && timeVal != null) {
+        timeInMillis = timeValueParser.parseTimestamp(timeVal);
+        ctx.currentDateString = timeVal;
+        ctx.currentTimeInMillis = timeInMillis;
+        data.timeStampInMillis = timeInMillis;
+      } else {
+        return false;
+      }
+    }
+    
     data.content.clear();
     
     for (String name : DIRECT_MAP_COLS) {

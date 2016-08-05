@@ -4,7 +4,7 @@
 <log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
   <!-- Appenders. Most of the RollingFileAppender is attached to an AsyncAppender -->
   <appender name="infoLog" class="org.apache.log4j.RollingFileAppender">
-    <param name="File" value="${log.home}/testlog.info" />
+    <param name="File" value="/data/logmatters/input/testlog.info" />
     <param name="MaxFileSize" value="1000MB" />
     <param name="MaxBackupIndex" value="100" />
     <layout class="net.logstash.log4j.JSONEventLayoutV1">

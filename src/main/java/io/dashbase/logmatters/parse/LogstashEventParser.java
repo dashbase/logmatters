@@ -114,14 +114,13 @@ public class LogstashEventParser implements RapidIngesterParser
         timeInMillis = timeValueParser.parseTimestamp(timeVal);
         ctx.currentDateString = timeVal;
         ctx.currentTimeInMillis = timeInMillis;
-        data.timeStampInMillis = timeInMillis;
       } else {
         return false;
       }
     }
-    
+    data.timeStampInMillis = timeInMillis;
+
     data.content.clear();
-    
     for (String name : DIRECT_MAP_COLS) {
       String val = getValue(dataMap, name);
       if (val != null) {

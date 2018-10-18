@@ -1,5 +1,0 @@
-{
-    "params": {
-    },
-    "clazz": "io.dashbase.logmatters.parse.LogstashEventParser"
-}

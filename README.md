@@ -3,6 +3,12 @@ Java log generator
 
 ## Build
 
+Pre-requisites:
+
+* [java 10+](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
+* [maven](https://maven.apache.org/)
+
+Build:
 ```
 mvn clean package
 ```

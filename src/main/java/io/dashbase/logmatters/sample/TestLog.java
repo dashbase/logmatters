@@ -1,11 +1,12 @@
 package io.dashbase.logmatters.sample;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Random;
 
-import org.apache.log4j.Logger;
-
 public class TestLog {
-  private static Logger log = Logger.getLogger(TestLog.class);
+  private static Logger log = LoggerFactory.getLogger(TestLog.class);
   
   private static Random rand = new Random();
   
@@ -14,11 +15,24 @@ public class TestLog {
   }
   
   private static boolean isError(int roll) {
-    return roll == 0;
+      return roll == 0;
   }
   
   private static boolean isWarn(int roll) {
     return roll == 1 || roll == 2;
+  }
+
+  static void logIt(Logger logger) {
+	  int roll = rand.nextInt(10);
+	  if (isInfo(roll)) {
+		  logger.info("test info");
+	  }
+	  if (isError(roll)) {
+		  Exception e = getException();
+		  logger.error("oops, error found", e);
+	  } else if (isWarn(roll)) {
+		  logger.warn("got a warning");
+	  }
   }
   
   private static Exception getException() {
@@ -38,15 +52,7 @@ public class TestLog {
 	  while(count < numIter) {
 	    if (numLines <= 0) {
 	      Thread.sleep(2000);
-	    }
-	    int roll = rand.nextInt(10);
-	    if (isInfo(roll)) {
-	      log.info("test info");
-	    } else if (isError(roll)) {
-	      Exception e = getException();
-	      log.error("oops, error found", e);
-	    } else if (isWarn(roll)) {
-	      log.warn("got a warning");
+	      logIt(log);
 	    }
 	    count ++;
 	  }

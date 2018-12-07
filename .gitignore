@@ -1,2 +1,6 @@
 /target/
 /log/
+.idea/
+dependency-reduced-pom.xml
+logmatters.iml
+nohup.out

@@ -64,6 +64,6 @@ public class LogmattersApplication extends Application<LogmattersConfiguration> 
                 scheduler.shutdown();
             }
         });
-        System.out.println("logmatter: " + conf.name + " started");
+        logger.info("logmatters: " + conf.name + " started");
     }
 }

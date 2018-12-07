@@ -4,3 +4,4 @@ if [ x"$1" = x ]; then
 else
     pkill -f "java -Dprocessname=dashbase-log -Didentifier=$1"
 fi
+exit 0

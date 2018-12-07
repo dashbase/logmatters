@@ -70,6 +70,12 @@
         <artifactId>dropwizard-core</artifactId>
         <version>${dropwizard.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.dhatim/dropwizard-prometheus -->
+    <dependency>
+      <groupId>org.dhatim</groupId>
+      <artifactId>dropwizard-prometheus</artifactId>
+      <version>2.2.0</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

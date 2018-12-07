@@ -29,9 +29,9 @@ Logs are generated under `logs` directory
 ### Run multi processed
 #### Run 3 producer
 ```./bin/run.sh 3```
-process-1 write logs to `logs/dashbase-1.log`
+process-1 write logs to `/logs/dashbase-1.log`
 ...
-process-3 write logs to `logs/dashbase-3.log`
+process-3 write logs to `/logs/dashbase-3.log`
 
 #### Run 3 producer each with throttle limit 30
 ```./bin/run.sh 3 30```

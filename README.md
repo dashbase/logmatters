@@ -25,3 +25,16 @@ Edit the configuration file [here](https://github.com/dashbase/logmatters/blob/m
 ```./bin/testlog.sh```
 
 Logs are generated under `logs` directory
+
+### Run multi processed
+#### Run 3 producer
+```./bin/runner.sh 3```
+process-1 write logs to `logs/dashbase-1.log`
+...
+process-3 write logs to `logs/dashbase-3.log`
+
+#### Run 3 producer each with rotate second 30s
+```./bin/runner.sh 3 30```
+
+#### Kill all producer
+```./bin/kill.sh```

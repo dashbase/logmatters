@@ -35,7 +35,7 @@ public class LogmattersApplication extends Application<LogmattersConfiguration> 
 
     @Override
     public void run(LogmattersConfiguration conf, Environment environment) throws Exception {
-        Counter eventCounter = environment.metrics().counter("log_event_count");
+        Meter eventMeter = environment.metrics().meter("log_event_count");
         long sleepDuration = (long)(1000.0/(double)conf.throttleNPerSec);
         environment.lifecycle().manage(new Managed() {
             @Override
@@ -45,7 +45,7 @@ public class LogmattersApplication extends Application<LogmattersConfiguration> 
                     public void run() {
                         while(!isStopped) {
                             logIt(logger);
-                            eventCounter.inc();
+                            eventMeter.mark();
                             if (sleepDuration >=0) {
                                 try {
                                     Thread.sleep(sleepDuration);

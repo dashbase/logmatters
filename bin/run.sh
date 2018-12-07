@@ -8,15 +8,19 @@ basedir=${bin}/..
 conf=${basedir}/conf
 dist=${basedir}/target
 lib=${dist}/lib
-logs=/logs
+logs=${LOG_PATH:-log}
 cd ${basedir}
+
+epoch=`date +%s`
 
 for i in `seq 1 $1`
 do
     if [ x"$2" = x ]; then
-        nohup java  -Dprocessname=dashbase-log ${JAVA_OPTS} ${HEAP_OPTS} ${GC_OPTS} ${JMX_OPTS} ${JAVA_DEBUG} -Ddw.logging.appenders[0].currentLogFilename=${logs}/dashbase-$i-`date +%s`.log -Ddw.logging.appenders[0].archivedLogFilenamePattern=${logs}/dashbase-$i-`date +%s`.log.%i -jar ${dist}/logmatters-0.0.1-SNAPSHOT.jar server ${conf}/config.yml &
+        nohup java  -Dprocessname=dashbase-log -Didentifier=$epoch -Dtotal=$1 ${JAVA_OPTS} ${HEAP_OPTS} ${GC_OPTS} ${JMX_OPTS} ${JAVA_DEBUG} -Ddw.logging.appenders[0].currentLogFilename=${logs}/dashbase-$epoch-$i.log -Ddw.logging.appenders[0].archivedLogFilenamePattern=${logs}/dashbase-$epoch-$i.log.%i -jar ${dist}/logmatters-0.0.1-SNAPSHOT.jar server ${conf}/config.yml &
     else
-        nohup java -Dprocessname=dashbase-log ${JAVA_OPTS} ${HEAP_OPTS} ${GC_OPTS} ${JMX_OPTS} ${JAVA_DEBUG} -Ddw.throttleNPerSec=$2 -Ddw.logging.appenders[0].currentLogFilename=${logs}/dashbase-$i-`date +%s`.log -Ddw.logging.appenders[0].archivedLogFilenamePattern=${logs}/dashbase-$i-`date +%s`.log.%i -jar ${dist}/logmatters-0.0.1-SNAPSHOT.jar server ${conf}/config.yml &
+        nohup java -Dprocessname=dashbase-log -Didentifier=$epoch -Ddw.throttleNPerSec=$2 -Dtotal=$1 ${JAVA_OPTS} ${HEAP_OPTS} ${GC_OPTS} ${JMX_OPTS} ${JAVA_DEBUG} -Ddw.logging.appenders[0].currentLogFilename=${logs}/dashbase-$epoch-$i.log -Ddw.logging.appenders[0].archivedLogFilenamePattern=${logs}/dashbase-$epoch-$i.log.%i -jar ${dist}/logmatters-0.0.1-SNAPSHOT.jar server ${conf}/config.yml &
     fi
-    echo "Started the process $i with Log name: /logs/dashbase-$i-xxx.log..."
+    echo "Started the process $i with Log name: /logs/dashbase-$epoch-$i.log..."
 done
+echo "Got Identifier of these process: $epoch"
+echo "You can kill them by \`./bin/kill.sh $epoch\`"

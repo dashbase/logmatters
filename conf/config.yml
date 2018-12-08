@@ -9,7 +9,7 @@ logging:
         archivedLogFilenamePattern: logs/logmatters-%d.log.%i
         archivedFileCount: 7
         timeZone: UTC
-        maxFileSize: 200MB
+        maxFileSize: 10MB
         logFormat: "%-5p [%d{ISO8601}] %c: %replace(%msg){'[\r\n]+','\\\\n'} %replace(%ex){'[\r\n]+', '\\\\n'}%nopex%n"
       #- type: console
        # logFormat: "%-5p [%d{ISO8601}] %c: %replace(%msg){'[\r\n]+','\\\\n'} %replace(%ex){'[\r\n]+', '\\\\n'}%nopex%n"

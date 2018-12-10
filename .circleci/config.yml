@@ -8,6 +8,8 @@ jobs:
     steps:
     - checkout
 
+
+#   https://circleci.com/docs/api/#trigger-a-new-build-with-a-branch
     - deploy:
         command: |
           if [ "${CIRCLE_BRANCH}" == "master" ]; then

@@ -10,6 +10,7 @@ jobs:
 
     - deploy:
         command: |
-          if [ "${CIRCLE_BRANCH}" == "ci" ]; then
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+#           https://circleci.com/docs/api/#trigger-a-new-build-with-a-branch
             curl -X POST --write-out '%{http_code}' --silent --show-error --output /dev/null https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
           fi

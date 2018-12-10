@@ -11,5 +11,5 @@ jobs:
     - deploy:
         command: |
           if [ "${CIRCLE_BRANCH}" == "ci" ]; then
-            curl -X POST https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
+            curl -X POST --write-out '%{http_code}' --silent --show-error --output /dev/null https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
           fi

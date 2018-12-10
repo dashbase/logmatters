@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: circleci/buildpack-deps:curl
+    working_directory: ~/logmatters
+
+    steps:
+    - checkout
+
+    - deploy:
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "ci" ]; then
+            curl -X POST https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
+          fi

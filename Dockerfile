@@ -1,12 +1,9 @@
-FROM openjdk:11-jre
-WORKDIR /opt/logmatters
+FROM openjdk:11-jdk-slim AS builder
+WORKDIR /root
+RUN apt update && apt install maven -y && mvn --version
 
-RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.5.0-amd64.deb && \
-    dpkg -i filebeat-6.5.0-amd64.deb
+COPY . .
+RUN mvn clean package
 
-RUN curl -L -O https://dl.influxdata.com/telegraf/releases/telegraf_1.9.0-1_amd64.deb && \
-    dpkg -i telegraf_1.9.0-1_amd64.deb
-
-RUN apt update && apt install -y vim dstat htop supervisor
-
-ADD ./target /opt/logmatters
+EXPOSE 8080 8081
+ENTRYPOINT ["./bin/entrypoint.sh"]

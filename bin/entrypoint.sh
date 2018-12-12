@@ -14,4 +14,4 @@ nohup java  -Dprocessname=dashbase-log -Didentifier=$epoch \
 done
 
 # sleep
-while true; do; sleep 100; done
+while true; do sleep 100; done

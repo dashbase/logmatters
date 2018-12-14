@@ -9,7 +9,7 @@
 
 # -------------- CONFIG START -------------
 # path to find log, the same with filebeat
-FIND_PATH="/usr/local/ipbx/IntraSwitch/http/out/"
+FIND_PATH="/logs/"
 # regex to find log, the same with filebeat
 REGEX=".*.log"
 

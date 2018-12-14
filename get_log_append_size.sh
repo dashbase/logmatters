@@ -17,7 +17,7 @@ REGEX=".*.log"
 # > --- metadata_file ---
 # > file_path,file_size,file_inode,file_change_time(epoch)
 # > ...
-SAVE_METADATA_PATH="/var/log/file_status.info"
+SAVE_METADATA_PATH="/opt/scripts/get_log_append_size.txt"
 
 # -------------- CONFIG END -----------------
 # -------------------------------------------
@@ -38,7 +38,8 @@ cal_file(){
   created_at=$(echo $1 | cut -f4 -d,)
 
   # 1. if file not in the last files status
-  if ! [[ -v "last_status_inode[$file_path]" ]] ; then
+  #if ! [[ -v "last_status_inode[$file_path]" ]] ; then
+  if [[ -z "${last_status_inode[$file_path]}" ]] ; then
     last_status_size[$file_path]=$file_size
     last_status_inode[$file_path]=$inode_id
     last_status_date[$file_path]=$created_at
@@ -47,7 +48,8 @@ cal_file(){
   fi
 
   # 2. if file rotate onec
-  if ! [ "$inode_id" -eq "${last_status_inode[$file_path]}" ] ; then
+  #if ! [ "$inode_id" -eq "${last_status_inode[$file_path]}" ] ; then
+  if [ "$inode_id" -ne "${last_status_inode[$file_path]}" ] ; then
 
     #  (file.status.size) + (file.last_status.inode.get_file().size - file.last_status.size)
     #  > Last status:
@@ -61,7 +63,9 @@ cal_file(){
 
     last_file_current_size=$(find $FIND_PATH  -inum ${last_status_inode[$file_path]} -printf "%s")
     let size_delta=$file_size+${last_file_current_size}-${last_status_size[$file_path]}
-    RATE_OF_CHANGE=$(echo $size_delta $created_at ${last_status_date[$file_path]}| awk '{ printf "%0.8f\n" ,$1/($2-$3)}')
+    if [[ "$created_at" != "${last_status_date[$file_path]}" ]]; then
+      RATE_OF_CHANGE=$(echo $size_delta $created_at ${last_status_date[$file_path]}| awk '{ printf "%0.8f\n" ,$1/($2-$3)}')
+    fi
     last_status_size[$file_path]=$file_size
     last_status_date[$file_path]=$created_at
     last_status_inode[$file_path]=$inode_id
@@ -70,7 +74,9 @@ cal_file(){
 
   # 3. normal
   let size_delta=$file_size-${last_status_size[$file_path]}
-  RATE_OF_CHANGE=$(echo $size_delta $created_at ${last_status_date[$file_path]}| awk '{ printf "%0.8f\n" ,$1/($2-$3)}')
+  if [[ "$created_at" != "${last_status_date[$file_path]}" ]]; then
+    RATE_OF_CHANGE=$(echo $size_delta $created_at ${last_status_date[$file_path]}| awk '{ printf "%0.8f\n" ,$1/($2-$3)}')
+  fi
   last_status_size[$file_path]=$file_size
   last_status_date[$file_path]=$created_at
   return

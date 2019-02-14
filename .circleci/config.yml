@@ -12,10 +12,16 @@ jobs:
 
     - deploy:
         command: |
+          export TAG=latest
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-          docker build . -t dashbase/logmatters
-          docker login
-          docker push dashbase/logmatters
+          docker build -t dashbase/logmatters:$TAG .
+          docker push dashbase/logmatters:$TAG
+
+          docker build -t dashbase/logmatters:$TAG-${CIRCLE_SHA1::6} .
+          docker push dashbase/logmatters:$TAG-${CIRCLE_SHA1::6}
+
+          .circleci/update.sh
+
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
             echo 1
           fi

@@ -1,0 +1,21 @@
+throttleNPerSec: -1
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+logging:
+  level: INFO
+  appenders:
+    - type: file
+      currentLogFilename: logs/logmatters.log
+      archive: true
+      archivedLogFilenamePattern: logs/logmatters-%d.log.%i
+      archivedFileCount: 7
+      timeZone: UTC
+      maxFileSize: 10MB
+      logFormat: "[%d{ISO8601}] %-5p %c: %replace(%msg){'[\r\n]+','\\\\n'} %replace(%ex){'[\r\n]+', '\\\\n'}%nopex%n"

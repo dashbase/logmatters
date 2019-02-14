@@ -19,4 +19,5 @@ jobs:
           docker push dashbase/logmatters
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
 #            curl -X POST --write-out '%{http_code}' --silent --show-error --output /dev/null https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
+            echo 1
           fi

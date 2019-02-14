@@ -4,7 +4,7 @@ RUN apt update && apt install maven -y && mvn --version
 
 COPY src src
 COPY pom.xml pom.xml
-RUN mvn clean package
+RUN mvn clean package --quiet
 COPY conf conf
 COPY bin bin
 

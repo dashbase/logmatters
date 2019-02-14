@@ -7,11 +7,16 @@ jobs:
 
     steps:
     - checkout
+    - setup_remote_docker
 
 
 #   https://circleci.com/docs/api/#trigger-a-new-build-with-a-branch
     - deploy:
         command: |
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+          docker build . -t dashbase/logmatters
+          docker login
+          docker push dashbase/logmatters
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            curl -X POST --write-out '%{http_code}' --silent --show-error --output /dev/null https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
+#            curl -X POST --write-out '%{http_code}' --silent --show-error --output /dev/null https://circleci.com/api/v1.1/project/github/dashbase/$REPO_NAME/tree/$REPO_BRANCH?circle-token=$CIRCLECI_TOKEN
           fi

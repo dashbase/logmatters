@@ -18,4 +18,3 @@ logging:
       archivedFileCount: 7
       timeZone: UTC
       maxFileSize: 10MB
-      logFormat: "[%d{ISO8601}] %-5p %c: %replace(%msg){'[\r\n]+','\\\\n'} %replace(%ex){'[\r\n]+', '\\\\n'}%nopex%n"

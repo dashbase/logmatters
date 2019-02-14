@@ -8,7 +8,7 @@ do
 epoch=`date +%s`
 nohup java  -Dprocessname=dashbase-log -Didentifier=$epoch \
       -Dtotal=$loop ${JAVA_OPTS} ${HEAP_OPTS} ${GC_OPTS} ${JMX_OPTS} ${JAVA_DEBUG} \
-      -Ddw.logging.appenders[0].currentLogFilename=${LOG_PA}/dashbase-$epoch.log \
+      -Ddw.logging.appenders[0].currentLogFilename=${logs}/dashbase-$epoch.log \
       -Ddw.logging.appenders[0].archivedLogFilenamePattern=${logs}/dashbase-$epoch.log.%i \
       -jar ./target/logmatters-*.jar server ${conf} > /tmp/logmatters.log &
 done

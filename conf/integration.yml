@@ -1,4 +1,4 @@
-throttleNPerSec: -1
+throttleNPerSec: 1
 
 server:
   applicationConnectors:

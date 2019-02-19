@@ -1,4 +1,4 @@
-throttleNPerSec: 100
+throttleNPerSec: 500
 
 server:
   applicationConnectors:

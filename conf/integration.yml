@@ -17,4 +17,4 @@ logging:
       archivedLogFilenamePattern: logs/logmatters-%d.log.%i
       archivedFileCount: 7
       timeZone: UTC
-      maxFileSize: 10MB
+      maxFileSize: 40MB

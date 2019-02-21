@@ -11,6 +11,9 @@ nohup java  -Dprocessname=dashbase-log -Didentifier=$epoch \
       -Ddw.logging.appenders[0].currentLogFilename=${logs}/dashbase-$epoch.log \
       -Ddw.logging.appenders[0].archivedLogFilenamePattern=${logs}/dashbase-$epoch.log.%i \
       -jar ./target/logmatters-*.jar server ${conf} > /tmp/logmatters.log &
+
+sleep 1
+
 done
 
 # sleep

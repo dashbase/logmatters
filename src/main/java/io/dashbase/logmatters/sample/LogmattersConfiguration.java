@@ -1,8 +1,16 @@
 package io.dashbase.logmatters.sample;
 
+import io.dashbase.logmatters.services.Deployment;
+import io.dashbase.logmatters.services.ServiceConfiguration;
 import io.dropwizard.Configuration;
 
+import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
+
 public class LogmattersConfiguration extends Configuration {
-    public int throttleNPerSec = 1;
-    public String name = "logmatters";
+    @NotNull
+    public Map<String, ServiceConfiguration> services = new HashMap<>();
+    @NotNull
+    public Deployment deployment = null;
 }

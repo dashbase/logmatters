@@ -42,7 +42,7 @@ public final class Service {
         } else {
             ctx = ctxId;
         }
-        logger.info("ctx: [" + ctx +"] executing service: " + name);
+        logger.info(config.format.format("ctx: [" + ctx +"] executing service: " + name));
         if (isFail(config.sla)) {
             throw new Exception("ctx: [" + ctx + "] service: " + name + " internal error");
         }
@@ -56,6 +56,6 @@ public final class Service {
             duration = System.currentTimeMillis() - start;
         }
         subcalls.execute(ctx, executorService);
-        logger.info("ctx: [" + ctx +"] done executing service: " + name + ", took: " + duration + " ms");
+        logger.info(config.format.format("ctx: [" + ctx +"] done executing service: " + name + ", took: " + duration + " ms"));
     }
 }

@@ -11,6 +11,8 @@ services:
       p50: 10
       p90: 50
       p99: 200
+    format:
+      type: xml
   mysql:
     sla: 90
     latencyMs:

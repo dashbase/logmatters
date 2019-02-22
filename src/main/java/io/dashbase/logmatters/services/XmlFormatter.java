@@ -9,6 +9,6 @@ public class XmlFormatter implements MessageFormatter {
 
     @Override
     public String format(String message) {
-        return "<xml><message>"+message+"<message></xml>";
+        return "<xml><message>"+message+"</message></xml>";
     }
 }

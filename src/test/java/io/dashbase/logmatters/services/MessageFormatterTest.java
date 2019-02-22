@@ -15,6 +15,6 @@ public class MessageFormatterTest {
     public void testXmlFormatter() throws Exception {
         XmlFormatter formatter = new XmlFormatter();
         String formatted = formatter.format("this is a test");
-        Assert.assertEquals("<xml><message>this is a test<message></xml>", formatted);
+        Assert.assertEquals("<xml><message>this is a test</message></xml>", formatted);
     }
 }

@@ -1,4 +1,4 @@
-FROM openjdk:11.0.1-stretch
+FROM openjdk:11-jre-slim AS builder
 WORKDIR /root
 COPY target target
 COPY conf conf

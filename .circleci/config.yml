@@ -13,7 +13,7 @@ jobs:
         command: |
               java -version
               mvn --version
-              mvn clean package
+              mvn clean package --quiet
     - deploy:
         name: docker push
         command: |

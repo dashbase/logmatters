@@ -24,4 +24,5 @@ jobs:
               docker push dashbase/logmatters:$TAG
               docker tag  dashbase/logmatters:$TAG dashbase/logmatters:$TAG-${CIRCLE_SHA1::6}
               docker push dashbase/logmatters:$TAG-${CIRCLE_SHA1::6}
-            fi        
+              .circleci/update.sh
+            fi

@@ -62,3 +62,28 @@ Use `ps -ef | grep java` to get all running processed.
 
 #### Kill all producer
 ```./bin/kill.sh```
+
+## Run as a script to generate logs
+
+#### Using Docker image
+```
+$ docker run -it dashbase/log-generator conf/generate.yml -c 10 > samples.log
+```
+The above generates 10 service calls (which depending on your generate.yml in turn might generate more log lines) and pipes the results to the `samples.log` file.
+Logs can be piped to a file, but can also be found under `logs/logmatters.log` (settings defined in generate.yml).
+
+#### To build the docker image for `dashbase/log-generator` simply do:
+
+`mvn package`
+
+`docker build -f DockerfileGenerator -t dashbase/logs-generator .`
+
+#### Manually
+```
+$ mvn package
+```
+
+```
+java -jar target/logmatters-0.0.1-SNAPSHOT.jar generate conf/generate.yml -c 1
+```
+Generates one call and uses `generate.yml` to figure out the calls.

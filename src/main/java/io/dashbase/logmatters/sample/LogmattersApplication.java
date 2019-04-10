@@ -1,8 +1,5 @@
 package io.dashbase.logmatters.sample;
 
-import com.codahale.metrics.Counter;
-import com.codahale.metrics.Meter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dashbase.logmatters.services.ServiceRegistry;
 import io.dropwizard.Application;
 import io.dropwizard.lifecycle.Managed;
@@ -12,12 +9,9 @@ import org.dhatim.dropwizard.prometheus.PrometheusBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
-import static io.dashbase.logmatters.sample.TestLog.logIt;
 
 public class LogmattersApplication extends Application<LogmattersConfiguration> {
 
@@ -34,6 +28,7 @@ public class LogmattersApplication extends Application<LogmattersConfiguration> 
     @Override
     public void initialize(Bootstrap<LogmattersConfiguration> bootstrap) {
         bootstrap.addBundle(new PrometheusBundle());
+        bootstrap.addCommand(new LogmattersCommand(this));
     }
 
     @Override

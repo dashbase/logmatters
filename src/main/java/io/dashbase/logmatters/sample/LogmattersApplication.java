@@ -28,7 +28,7 @@ public class LogmattersApplication extends Application<LogmattersConfiguration> 
     @Override
     public void initialize(Bootstrap<LogmattersConfiguration> bootstrap) {
         bootstrap.addBundle(new PrometheusBundle());
-        bootstrap.addCommand(new LogmattersCommand());
+        bootstrap.addCommand(new LogmattersCommand(this));
     }
 
     @Override

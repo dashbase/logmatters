@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="stash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/logstash-encoder.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/logstash-encoder.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <rawMessage>
+                    <fieldName>message</fieldName>
+                </rawMessage>
+            </providers>
+        </encoder>
+    </appender>
+<!--    <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+<!--        <destination>127.0.0.1:4560</destination>-->
+<!--        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
+<!--            <providers>-->
+<!--                <rawMessage>-->
+<!--                    <fieldName>message</fieldName>-->
+<!--                </rawMessage>-->
+<!--            </providers>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+    <root level="all">
+        <appender-ref ref="stash" />
+    </root>
+</configuration>

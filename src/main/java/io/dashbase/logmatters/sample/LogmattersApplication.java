@@ -1,5 +1,7 @@
 package io.dashbase.logmatters.sample;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.util.ContextInitializer;
 import io.dashbase.logmatters.services.ServiceRegistry;
 import io.dropwizard.Application;
 import io.dropwizard.lifecycle.Managed;
@@ -14,7 +16,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class LogmattersApplication extends Application<LogmattersConfiguration> {
-
     private static Logger logger = LoggerFactory.getLogger(LogmattersApplication.class);
 
     private volatile boolean isStopped = false;
@@ -33,6 +34,10 @@ public class LogmattersApplication extends Application<LogmattersConfiguration> 
 
     @Override
     public void run(LogmattersConfiguration conf, Environment environment) throws Exception {
+        LoggerContext context = (LoggerContext)LoggerFactory.getILoggerFactory();
+        context.reset();
+        ContextInitializer initializer = new ContextInitializer(context);
+        initializer.autoConfig();
         ServiceRegistry.INSTANCE.load(conf.services);
         environment.lifecycle().manage(new Managed() {
             @Override
